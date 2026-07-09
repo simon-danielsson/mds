@@ -32,11 +32,22 @@ pub struct Slide {
     name: Option<String>,
     items: Vec<SlideItem>,
 }
+
 impl Slide {
     fn new(name: Option<String>) -> Self {
         Self {
             name,
             items: Vec::new(),
+        }
+    }
+    fn push_list_item(&mut self, item: ListItem) {
+        match self.items.last_mut() {
+            Some(SlideItem::List(list)) => {
+                list.push(item);
+            }
+            _ => {
+                self.items.push(SlideItem::List(vec![item]));
+            }
         }
     }
 }
@@ -139,17 +150,73 @@ fn parse_section(
                 println!("quote: {line}");
             }
 
-            // check list item
-            _ if line.trim_start().starts_with("- [") => {
-                println!("check-list item: {line}");
+            // bullet list item
+            _ if (line.trim_start().starts_with("- ")
+                && !line.trim_start().starts_with("- ["))
+                || line.trim_start().starts_with("+ ")
+                || line.trim_start().starts_with("* ") =>
+            {
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        a.push_list_item(ListItem::Bullet(
+                                line.split_at(2).1.trim().to_string(),
+                        ));
+                    }
+                }
+
+                // println!("bullet-list item: {line}");
             }
 
-            // bullet list item
-            _ if line.trim_start().starts_with("- ") => {
-                println!("bullet-list item: {line}");
+            // check list item
+            _ if line.trim_start().starts_with("- [") => {
+                let mut checked = false;
+                if line.trim().as_bytes()[3] == b'x' {
+                    checked = true;
+                }
+
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        a.push_list_item(ListItem::Check((
+                                    line.split_at(5).1.trim().to_string(),
+                                    checked,
+                        )));
+                    }
+                }
+                // unimplemented!("check list: {line}");
+                // println!("check-list item: {line}");
+            }
+
+            // numbered list item
+            _ if !line.is_empty() => {
+                if line.trim().as_bytes()[0].is_ascii_digit() {
+                    if line.trim().as_bytes()[1] == b'.'
+                        && line.trim().as_bytes()[2] == b' '
+                    {
+                        if let Some(a) = slideshow.last_mut() {
+                            if let Some(a) = a.slides.last_mut() {
+                                a.push_list_item(ListItem::Number(
+                                        line.split_at(3)
+                                        .1
+                                        .trim()
+                                        .to_string(),
+                                ));
+                            }
+                        }
+                        // unimplemented!("numbered list: {line}");
+                    }
+                    // println!("check-list item: {line}");
+                }
             }
 
             _ => {
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Text(TextItem::Body(
+                                line.split_at(0).1.trim().to_string(),
+                        ));
+                        a.items.push(si);
+                    }
+                }
                 println!("body: {line}");
             }
         }
