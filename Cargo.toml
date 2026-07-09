@@ -3,6 +3,7 @@ name = "mds"
 version = "0.1.0"
 edition = "2024"
 description = "Markdown to static HTML slideshow generator."
+license = "MIT"
 
 [dependencies]
 anyhow = "1.0.103"
