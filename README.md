@@ -1,3 +1,10 @@
+<p align="center">
+    <img src="media/logo.png" alt="mds" width="200"/>
+</p>
+  
+<p align="center">
+  <em>Markdown to static HTML slideshow generator.</em>
+</p>
 
 ### info
 
