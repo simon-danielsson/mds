@@ -1,10 +1,22 @@
 
 
+mds (markdown slides)
+
+``` terminal
+
+Slide hierarchy:
+
+    # h1            slide section
+    ## h2           slide
+    ### h3          slide header text
+    #### h4         slide sub-header
+
+```
 
 
 ``` terminal
 USAGE
-    mdp [options] <src-file>
+    mds [options] <src-file>
 
 META OPTIONS
     -h, --help        Displays this help message.
