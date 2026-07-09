@@ -76,6 +76,7 @@ pub fn md_parse(md_contents: String) -> anyhow::Result<Vec<Section>> {
     Ok(slideshow)
 }
 
+/// recursive
 fn parse_section(
     slideshow: &Vec<Section>,
     mut md_lines: &mut std::str::Lines<'_>,
@@ -85,16 +86,12 @@ fn parse_section(
         match line {
             // new section
             _ if line.trim_start().starts_with("# ") => {
-                println!("new slide section: {line}");
                 slideshow.push(Section::new());
                 if !line.split_at(2).1.is_empty() {
                     if let Some(a) = slideshow.last_mut() {
                         a.name = Some(line.split_at(2).1.to_string());
-                        // println!("{:#?}", a.name); // debug
                     }
-                    // println!("{:#?}", slideshow.last_mut().unwrap().name); // debug
                 }
-
                 slideshow = parse_section(&slideshow, &mut md_lines)?;
             }
 
@@ -108,7 +105,6 @@ fn parse_section(
                     }
                     a.slides.push(Slide::new(name));
                 }
-                println!("new slide: {line}");
             }
 
             // text header
@@ -121,7 +117,6 @@ fn parse_section(
                         a.items.push(si);
                     }
                 }
-                println!("slide header: {line}");
             }
 
             // text sub-header
@@ -134,7 +129,6 @@ fn parse_section(
                         a.items.push(si);
                     }
                 }
-                println!("slide sub-header: {line}");
             }
 
             // quote
@@ -147,7 +141,6 @@ fn parse_section(
                         a.items.push(si);
                     }
                 }
-                println!("quote: {line}");
             }
 
             // bullet list item
@@ -163,8 +156,6 @@ fn parse_section(
                         ));
                     }
                 }
-
-                // println!("bullet-list item: {line}");
             }
 
             // check list item
@@ -182,32 +173,24 @@ fn parse_section(
                         )));
                     }
                 }
-                // unimplemented!("check list: {line}");
-                // println!("check-list item: {line}");
             }
 
             // numbered list item
-            _ if !line.is_empty() => {
-                if line.trim().as_bytes()[0].is_ascii_digit() {
-                    if line.trim().as_bytes()[1] == b'.'
-                        && line.trim().as_bytes()[2] == b' '
-                    {
-                        if let Some(a) = slideshow.last_mut() {
-                            if let Some(a) = a.slides.last_mut() {
-                                a.push_list_item(ListItem::Number(
-                                        line.split_at(3)
-                                        .1
-                                        .trim()
-                                        .to_string(),
-                                ));
-                            }
-                        }
-                        // unimplemented!("numbered list: {line}");
+            _ if !line.is_empty()
+                && line.trim().as_bytes()[0].is_ascii_digit()
+                && line.trim().as_bytes()[1] == b'.'
+                && line.trim().as_bytes()[2] == b' ' =>
+            {
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        a.push_list_item(ListItem::Number(
+                                line.split_at(3).1.trim().to_string(),
+                        ));
                     }
-                    // println!("check-list item: {line}");
                 }
             }
 
+            // body
             _ => {
                 if let Some(a) = slideshow.last_mut() {
                     if let Some(a) = a.slides.last_mut() {
@@ -217,7 +200,6 @@ fn parse_section(
                         a.items.push(si);
                     }
                 }
-                println!("body: {line}");
             }
         }
     }

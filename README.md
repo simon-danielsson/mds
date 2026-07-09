@@ -5,9 +5,12 @@ mds (markdown slides)
 
 
 
-### todo
+### to add support for
 
-- add support for tables
+- tables
+- code blocks
+- images
+- links
 
 
 ``` terminal
