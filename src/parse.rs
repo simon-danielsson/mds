@@ -46,6 +46,14 @@ pub struct Section {
     name: Option<String>,
     slides: Vec<Slide>,
 }
+impl Section {
+    fn new() -> Self {
+        Self {
+            name: None,
+            slides: Vec::new(),
+        }
+    }
+}
 
 pub fn md_parse(md_contents: String) -> anyhow::Result<Vec<Section>> {
     let mut slideshow: Vec<Section> = Vec::new();
@@ -67,16 +75,15 @@ fn parse_section(
             // new section
             _ if line.trim_start().starts_with("# ") => {
                 println!("new slide section: {line}");
-                slideshow.push(Section::default());
+                slideshow.push(Section::new());
                 if !line.split_at(2).1.is_empty() {
                     if let Some(a) = slideshow.last_mut() {
                         a.name = Some(line.split_at(2).1.to_string());
                         // println!("{:#?}", a.name); // debug
                     }
-                } else {
-                    slideshow.last_mut().unwrap().name = None;
                     // println!("{:#?}", slideshow.last_mut().unwrap().name); // debug
                 }
+
                 slideshow = parse_section(&slideshow, &mut md_lines)?;
             }
 
@@ -95,16 +102,40 @@ fn parse_section(
 
             // text header
             _ if line.trim_start().starts_with("### ") => {
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Text(TextItem::Header(
+                                line.split_at(3).1.trim().to_string(),
+                        ));
+                        a.items.push(si);
+                    }
+                }
                 println!("slide header: {line}");
             }
 
             // text sub-header
             _ if line.trim_start().starts_with("#### ") => {
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Text(TextItem::SubHeader(
+                                line.split_at(4).1.trim().to_string(),
+                        ));
+                        a.items.push(si);
+                    }
+                }
                 println!("slide sub-header: {line}");
             }
 
             // quote
             _ if line.trim_start().starts_with("> ") => {
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Text(TextItem::Quote(
+                                line.split_at(1).1.trim().to_string(),
+                        ));
+                        a.items.push(si);
+                    }
+                }
                 println!("quote: {line}");
             }
 

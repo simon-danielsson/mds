@@ -1,6 +1,14 @@
 
+### info
 
 mds (markdown slides)
+
+
+
+### todo
+
+- add support for tables
+
 
 ``` terminal
 
