@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-cd "$HOME/dev/rust/mdp"
+PRG="mds"
+
+cd "$HOME/dev/rust/$PRG"
 
 cargo build
 
-./target/debug/mdp test.md -o ../hello.html
+./target/debug/$PRG test.md -o ../hello.html
 

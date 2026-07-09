@@ -1,5 +1,5 @@
 USAGE
-    mdp [options] <src-file>
+    mds [options] <src-file>
 
 META OPTIONS
     -h, --help            Displays this help message.
