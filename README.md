@@ -18,7 +18,7 @@ mds (markdown slides)
 ### to add support for
 
 - [ ] tables
-- [ ] code blocks
+- [x] code blocks
 - [ ] links
 - [x] images
 

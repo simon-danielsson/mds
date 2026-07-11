@@ -152,16 +152,28 @@ fn parse_section(
             }
 
             // code
-            // _ if line.trim_start().starts_with("```") => {
-            //     if let Some(a) = slideshow.last_mut() {
-            //         if let Some(a) = a.slides.last_mut() {
-            //             let si = SlideItem::Text(TextItem::Quote(
-            //                     line.split_at(1).1.trim().to_string(),
-            //             ));
-            //             a.items.push(si);
-            //         }
-            //     }
-            // }
+            _ if line.trim_start().starts_with("```") => {
+                let lang_name = line
+                    .get(4..)
+                    .map(|s| s.to_string())
+                    .unwrap_or("terminal".to_string());
+                println!("lang: {}", lang_name);
+                let mut content = String::new();
+                'get_content: while let Some(line) = md_lines.next() {
+                    if line.trim_start().starts_with("```") {
+                        break 'get_content;
+                    }
+                    content.push_str(line);
+                }
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Text(TextItem::Code((
+                                    lang_name, content,
+                        )));
+                        a.items.push(si);
+                    }
+                }
+            }
 
             // image
             _ if line.trim_start().starts_with("![") => {
