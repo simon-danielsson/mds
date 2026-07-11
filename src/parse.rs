@@ -37,10 +37,82 @@ pub enum SlideItem {
     List(Vec<ListItem>),
 }
 
+impl SlideItem {
+    pub fn to_html(&self) -> String {
+        match self {
+            SlideItem::Text(item) => match item {
+                TextItem::Header(s) => return format!("<h2>{}</h2>", s),
+                TextItem::SubHeader(s) => return format!("<h3>{}</h3>", s),
+                TextItem::Body(s) => return format!("<p>{}</p>", s),
+                TextItem::Quote(s) => {
+                    return format!("<blockquote>\"{}\"</blockquote>", s);
+                }
+                TextItem::Code((name, content)) => {
+                    return format!(
+                        "<pre><code lang=\"{}\">{content}</code></pre>",
+                        name
+                    );
+                }
+                TextItem::Link((name, url)) => {
+                    return format!(
+                        "<a href=\"{url}\" target=\"_blank\">{name}</a>"
+                    );
+                }
+            },
+            SlideItem::Image((name, path)) => {
+                return format!(
+                    "<img src=\"{}\" alt=\"{name}\">",
+                    path.to_str().unwrap()
+                );
+            }
+            SlideItem::List(items) => {
+                let mut op = String::new();
+                let mut el_first = "";
+                let mut el_last = "";
+                if let Some(last_item) = items.last() {
+                    match last_item {
+                        ListItem::Bullet(_s) => {
+                            el_first = "<ul>";
+                            el_last = "</ul>";
+                        }
+                        ListItem::Number(_s) => {
+                            el_first = "<ol>";
+                            el_last = "</ol>";
+                        }
+                        ListItem::Check((_s, _checked)) => {
+                            el_first = "<ol>";
+                            el_last = "</ol>";
+                        }
+                    }
+                }
+
+                op.push_str(el_first);
+
+                for item in items {
+                    match item {
+                        ListItem::Bullet(s) => op.push_str(
+                            format!("\n<li>{s}</li>").as_str(),
+                        ),
+                        ListItem::Number(s) => op.push_str(
+                            format!("\n<li>{s}</li>").as_str(),
+                        ),
+                        ListItem::Check((s, _checked)) => op.push_str(
+                            format!("\n<li>{s}</li>").as_str(),
+                        ),
+                    }
+                }
+
+                op.push_str(el_last);
+                return op;
+            }
+        }
+    }
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct Slide {
-    name: Option<String>,
-    items: Vec<SlideItem>,
+    pub name: Option<String>,
+    pub items: Vec<SlideItem>,
 }
 
 impl Slide {
@@ -165,7 +237,7 @@ fn parse_section(
                     if line.trim_start().starts_with("```") {
                         break 'get_content;
                     }
-                    content.push_str(line);
+                    content.push_str(format!("\n{line}").as_str());
                 }
                 if let Some(a) = slideshow.last_mut() {
                     if let Some(a) = a.slides.last_mut() {

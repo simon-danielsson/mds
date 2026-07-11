@@ -1,14 +1,75 @@
+
 :root {
-    --fg: #aab3c0;
-    --bg: #25252d;
+    --fg1: #aab3c0;
+    --fg2: #6e6e87;
+    --mg: #40404f;
+    --bg1: #2a2a33;
+    --bg2: #25252d;
+    --acc: #6087ae;
 }
 
-a, h1, h2, h3, code, p {
-    color: var(--fg)
-
+a, h1, h2, h3, code, p, ul, ol, li, blockquote {
+    color: var(--fg1);
 }
 
-html,
-body {
-    background-color: var(--bg);
+blockquote {
+    font-style: italic;
+    padding: 1rem;
+    background-color: var(--mg);
+}
+
+body, html {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg2);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.progress-bar {
+    position: sticky;
+    top: 0;
+    background: white;
+    border-bottom: 1px solid var(--mg);
+    z-index: 1000;
+}
+
+.progress-container {
+    width: 100%;
+    height: 40px;
+    background: var(--fg1);
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--acc);
+    width: 0%;
+    transition: width .25s ease;
+}
+
+.progress-text {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+}
+
+.content {
+    padding: 40px;
+}
+
+.slide {
+    display: none;
+    background: var(--bg1);
+    padding: 40px;
+    box-shadow: none;
+    min-height: 300px;
+}
+
+.slide h1 {
+    margin-top: 0;
 }
