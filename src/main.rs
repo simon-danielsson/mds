@@ -32,6 +32,7 @@ fn main() -> anyhow::Result<()> {
     }
 
     let s = std::fs::read_to_string(&mds.a.ip_path)?;
+
     let slideshow = parse::md_parse(s)?;
 
     std::fs::write("parser_output.txt", format!("{:#?}", slideshow))?;

@@ -19,8 +19,8 @@ mds (markdown slides)
 
 - [ ] tables
 - [ ] code blocks
-- [x] images
 - [ ] links
+- [x] images
 
 
 ``` terminal

@@ -5,7 +5,7 @@
 //     ### h3          slide header text
 //     #### h4         slide sub-header
 
-use std::path::PathBuf;
+use std::{path::PathBuf, str::FromStr};
 
 use anyhow::anyhow;
 
@@ -15,13 +15,15 @@ pub enum TextItem {
     SubHeader(String),
     Body(String),
     Quote(String),
-    Code(String),
+    /// String name, String content
+    Code((String, String)),
 }
 
 #[derive(Clone, Debug)]
 pub enum ListItem {
     Bullet(String),
     Number(String),
+    /// String content, bool checkmark
     Check((String, bool)),
 }
 
@@ -149,6 +151,18 @@ fn parse_section(
                 }
             }
 
+            // code
+            // _ if line.trim_start().starts_with("```") => {
+            //     if let Some(a) = slideshow.last_mut() {
+            //         if let Some(a) = a.slides.last_mut() {
+            //             let si = SlideItem::Text(TextItem::Quote(
+            //                     line.split_at(1).1.trim().to_string(),
+            //             ));
+            //             a.items.push(si);
+            //         }
+            //     }
+            // }
+
             // image
             _ if line.trim_start().starts_with("![") => {
                 let mut line_c_it = line.chars();
@@ -178,10 +192,13 @@ fn parse_section(
                     }
                 }
 
-                let path_b = PathBuf::from(&path);
+                path = resolve_path_str(path)?;
+                let path_b = PathBuf::from_str(&path)?.canonicalize()?;
+
                 if !path_b.is_file() {
                     return Err(anyhow!(
-                            "image item could not be found or was not a valid file"
+                            "image item \"{}\" could not be found or is not a valid file",
+                            path_b.display()
                     ));
                 }
 
@@ -254,4 +271,21 @@ fn parse_section(
         }
     }
     Ok(slideshow.clone())
+}
+
+fn resolve_path_str(mut path: String) -> anyhow::Result<String> {
+    if path.starts_with("~") {
+        let home = std::env::var("HOME")?;
+        path = path.replace("~", &home);
+    }
+
+    if path.starts_with(".") {
+        path = path.replace(
+            "~",
+            std::env::current_dir()?
+            .to_str()
+            .expect("could not expand relative path of \"{path}\""),
+        );
+    }
+    Ok(path)
 }
