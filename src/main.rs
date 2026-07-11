@@ -1,6 +1,7 @@
 use crate::utils::arg::Arguments;
 
 mod constants;
+mod gen_html;
 mod parse;
 mod utils;
 
@@ -35,7 +36,10 @@ fn main() -> anyhow::Result<()> {
 
     let slideshow = parse::md_parse(s)?;
 
-    std::fs::write("parser_output.txt", format!("{:#?}", slideshow))?;
+    // write output to debug log
+    std::fs::write("parser_output.txt", format!("{:#?}", &slideshow))?;
+
+    gen_html::generate(mds.a.op_path, slideshow)?;
 
     Ok(())
 }
