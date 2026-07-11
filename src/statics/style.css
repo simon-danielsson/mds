@@ -57,6 +57,10 @@ code {
     white-space: pre-wrap;
 }
 
+.keyword { color:#AF87AF; }
+.string { color:#87AFAF; }
+.number { color: #D75F87; }
+
 .checklist {
     list-style-type: none;
     padding-left: 0;

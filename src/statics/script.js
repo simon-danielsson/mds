@@ -73,6 +73,25 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
         }
     });
-
     showSlide(0);
+
+    // code highlighting
+    function highlightCode() {
+        const codeBlocks = document.querySelectorAll('code');
+        codeBlocks.forEach(block => {
+            let content = block.innerText;
+
+            content = content
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            content = content.replace(/(".*?"|'.*?'|`.*?`)/g, '<span class="string">$1</span>');
+            content = content.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
+            content = content.replace(/(\b(?:const|let|var|function|if|else|return|for|enum|struct|fn|def)\b)/g, '<span class="keyword">$1</span>');
+            block.innerHTML = content;
+        });
+    }
+    highlightCode();
+
 });

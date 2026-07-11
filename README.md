@@ -36,12 +36,12 @@ well as other contexts where a slideshow might be useful.
   
 There are no user-customizable theme-options as of yet.
   
-**Currently supported markdown syntax:**  
+**Currently supported:**  
 - [ ] Tables
-- [ ] Syntax highlighting in code blocks
 - [x] Links 
 - [x] Lists (bullet, check, numbered)
 - [x] Images
+- [x] Syntax highlighting in code blocks
 - [x] Code blocks
 - [x] Quotes ('>')
 - [x] Headers (see usage section)
