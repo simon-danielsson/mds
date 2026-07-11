@@ -17,6 +17,8 @@ pub enum TextItem {
     Quote(String),
     /// String name, String content
     Code((String, String)),
+    /// String link name, String link url
+    Link((String, String)),
 }
 
 #[derive(Clone, Debug)]
@@ -250,6 +252,51 @@ fn parse_section(
                                     line.split_at(5).1.trim().to_string(),
                                     checked,
                         )));
+                    }
+                }
+            }
+
+            // link
+            _ if (line.trim_start().contains('[')
+                && line.trim_start().contains(']'))
+                && line.trim_start().contains('(')
+                && line.trim_start().contains(')') =>
+            {
+                let mut line_c_it = line.chars();
+                let mut name = String::new();
+                let mut url = String::new();
+
+                while let Some(c) = line_c_it.next() {
+                    if c == '\n' {
+                        return Err(anyhow!(
+                                "premature EOL whilst parsing link item"
+                        ));
+                    }
+
+                    if c == '[' {
+                        while let Some(ci) = line_c_it.next() {
+                            if ci == ']' {
+                                break;
+                            }
+                            name.push(ci);
+                        }
+                    }
+                    if c == '(' {
+                        while let Some(ci) = line_c_it.next() {
+                            if ci == ')' || c == '\n' {
+                                break;
+                            }
+                            url.push(ci);
+                        }
+                    }
+                }
+
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Text(TextItem::Link((
+                                    name, url,
+                        )));
+                        a.items.push(si);
                     }
                 }
             }
