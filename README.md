@@ -74,7 +74,7 @@ META OPTIONS
 
 OPTIONS
     -o <path>         Output destination path surrounded by double quotes.
-                      Example: mdp -o "../my-presentation.html" present.md
+                      Example: mds -o "../my-presentation.html" present.md
                       If option is omitted, the slide is generated to 
                       the current directory. 
 ```
