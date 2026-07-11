@@ -1,0 +1,14 @@
+:root {
+    --fg: #aab3c0;
+    --bg: #25252d;
+}
+
+a, h1, h2, h3, code, p {
+    color: var(--fg)
+
+}
+
+html,
+body {
+    background-color: var(--bg);
+}

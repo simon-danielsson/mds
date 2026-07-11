@@ -6,5 +6,5 @@ cd "$HOME/dev/rust/$PRG"
 
 cargo build
 
-./target/debug/$PRG test.md -o ../hello.html
+./target/debug/$PRG test.md
 

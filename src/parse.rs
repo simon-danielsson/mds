@@ -64,8 +64,8 @@ impl Slide {
 
 #[derive(Clone, Debug, Default)]
 pub struct Section {
-    name: Option<String>,
-    slides: Vec<Slide>,
+    pub name: Option<String>,
+    pub slides: Vec<Slide>,
 }
 impl Section {
     fn new() -> Self {

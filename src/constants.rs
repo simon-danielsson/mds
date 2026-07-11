@@ -1,4 +1,4 @@
 pub const APP_NAME: &str = env!("CARGO_PKG_NAME");
 pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 
-pub const HELP_CONTENTS: &str = include_str!("static/help.txt");
+pub const HELP_CONTENTS: &str = include_str!("statics/help.txt");

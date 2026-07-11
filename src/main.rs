@@ -5,6 +5,7 @@ use crate::utils::arg::Arguments;
 mod constants;
 mod gen_html;
 mod parse;
+mod statics;
 mod utils;
 
 struct Mds {
@@ -53,9 +54,11 @@ fn output_html(prog_args: Arguments, content: String) -> anyhow::Result<()> {
         name.set_extension("html");
         name
     };
+
     if let Some(op) = prog_args.op_path {
         output_path = op;
     }
+
     std::fs::write(output_path, content)?;
     Ok(())
 }
