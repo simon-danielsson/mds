@@ -5,6 +5,10 @@
 //     ### h3          slide header text
 //     #### h4         slide sub-header
 
+use std::path::PathBuf;
+
+use anyhow::anyhow;
+
 #[derive(Clone, Debug)]
 pub enum TextItem {
     Header(String),
@@ -24,6 +28,8 @@ pub enum ListItem {
 #[derive(Clone, Debug)]
 pub enum SlideItem {
     Text(TextItem),
+    /// String name, PathBuf filepath
+    Image((String, PathBuf)),
     List(Vec<ListItem>),
 }
 
@@ -138,6 +144,50 @@ fn parse_section(
                         let si = SlideItem::Text(TextItem::Quote(
                                 line.split_at(1).1.trim().to_string(),
                         ));
+                        a.items.push(si);
+                    }
+                }
+            }
+
+            // image
+            _ if line.trim_start().starts_with("![") => {
+                let mut line_c_it = line.chars();
+                let mut name = String::new();
+                let mut path = String::new();
+                while let Some(c) = line_c_it.next() {
+                    if c == '\n' {
+                        return Err(anyhow!(
+                                "premature EOL whilst parsing image item"
+                        ));
+                    }
+                    if c == '[' {
+                        while let Some(ci) = line_c_it.next() {
+                            if ci == ']' {
+                                break;
+                            }
+                            name.push(ci);
+                        }
+                    }
+                    if c == '(' {
+                        while let Some(ci) = line_c_it.next() {
+                            if ci == ')' || c == '\n' {
+                                break;
+                            }
+                            path.push(ci);
+                        }
+                    }
+                }
+
+                let path_b = PathBuf::from(&path);
+                if !path_b.is_file() {
+                    return Err(anyhow!(
+                            "image item could not be found or was not a valid file"
+                    ));
+                }
+
+                if let Some(a) = slideshow.last_mut() {
+                    if let Some(a) = a.slides.last_mut() {
+                        let si = SlideItem::Image((name, path_b));
                         a.items.push(si);
                     }
                 }

@@ -15,14 +15,12 @@
 
 mds (markdown slides)
 
-
-
 ### to add support for
 
-- tables
-- code blocks
-- images
-- links
+- [ ] tables
+- [ ] code blocks
+- [x] images
+- [ ] links
 
 
 ``` terminal
