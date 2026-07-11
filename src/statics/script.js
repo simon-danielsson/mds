@@ -45,12 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
         updateProgress();
     }
 
+    let hideCursorTimeout;
+
+    document.addEventListener("mousemove", () => {
+        document.documentElement.style.cursor = "auto";
+        clearTimeout(hideCursorTimeout);
+        hideCursorTimeout = setTimeout(() => {
+            document.documentElement.style.cursor = "none";
+        }, 5000);
+    });
+
     document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight") {
             showSlide(current + 1);
         }
         if (e.key === "ArrowLeft") {
             showSlide(current - 1);
+        }
+        if (e.key === " " || e.code === "Space") {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+            e.preventDefault();
         }
     });
 

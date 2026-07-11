@@ -28,7 +28,13 @@
 I built this to create minimal and pretty slideshows for my Youtube channel, as
 well as other contexts where a slideshow might be useful.  
   
-Currently supported markdown features:  
+**Features:**   
+- Fancy progress-bar
+- Fullscreen-mode
+- Hidden scrollbar
+- Auto-hide mouse after inactivity
+  
+**Currently supported markdown syntax:**  
 - [ ] Tables
 - [ ] Syntax highlighting in code blocks
 - [-] Links (currently broken)
@@ -69,6 +75,14 @@ OPTIONS
                       Example: mdp -o "../my-presentation.html" present.md
                       If option is omitted, the slide is generated to 
                       the current directory. 
+```
+  
+### Presentation controls
+  
+``` terminal
+Left arrow      Previous slide
+Right arrow     Next slide
+Spacebar        Toggle fullscreen
 ```
   
 ### Markdown
