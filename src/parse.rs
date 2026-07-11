@@ -245,7 +245,7 @@ fn parse_section(
                     .get(4..)
                     .map(|s| s.to_string())
                     .unwrap_or("terminal".to_string());
-                println!("lang: {}", lang_name);
+                // println!("lang: {}", lang_name);
                 let mut content = String::new();
                 'get_content: while let Some(line) = md_lines.next() {
                     if line.trim_start().starts_with("```") {
