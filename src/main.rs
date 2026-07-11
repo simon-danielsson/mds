@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use crate::utils::arg::Arguments;
 
 mod constants;
@@ -39,7 +41,21 @@ fn main() -> anyhow::Result<()> {
     // write output to debug log
     std::fs::write("parser_output.txt", format!("{:#?}", &slideshow))?;
 
-    gen_html::generate(mds.a.op_path, slideshow)?;
+    let html = gen_html::generate(slideshow)?;
+    output_html(mds.a, html)?;
 
+    Ok(())
+}
+
+fn output_html(prog_args: Arguments, content: String) -> anyhow::Result<()> {
+    let mut output_path: PathBuf = {
+        let mut name = prog_args.ip_path.clone();
+        name.set_extension("html");
+        name
+    };
+    if let Some(op) = prog_args.op_path {
+        output_path = op;
+    }
+    std::fs::write(output_path, content)?;
     Ok(())
 }

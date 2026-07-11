@@ -8,7 +8,7 @@ use crate::constants::APP_NAME;
 pub struct Arguments {
     pub help: bool,
     pub version: bool,
-    pub op_path: PathBuf,
+    pub op_path: Option<PathBuf>,
     pub ip_path: PathBuf,
 }
 
@@ -38,7 +38,7 @@ pub fn parse_arguments() -> anyhow::Result<Arguments> {
                 let arg = it.next().ok_or_else(|| {
                     anyhow!("missing output path after {arg}")
                 })?;
-                a.op_path = PathBuf::from(arg);
+                a.op_path = Some(PathBuf::from(arg));
             }
 
             _ if arg.starts_with('-') => {
