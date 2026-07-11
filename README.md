@@ -31,8 +31,8 @@ well as other contexts where a slideshow might be useful.
 Currently supported markdown features:  
 - [ ] Tables
 - [ ] Syntax highlighting in code blocks
+- [-] Links (currently broken)
 - [x] Lists (bullet, check, numbered)
-- [x] Links
 - [x] Images
 - [x] Code blocks
 - [x] Quotes ('>')
