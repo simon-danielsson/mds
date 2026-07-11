@@ -3,29 +3,38 @@
     --fg1: #aab3c0;
     --fg2: #6e6e87;
     --mg: #40404f;
+    --bg0: #373743;
     --bg1: #2a2a33;
     --bg2: #25252d;
     --acc: #6087ae;
 }
 
-a, h1, h2, h3, code, p, ul, ol, li, blockquote {
+h1, h2, h3, code, p, ul, ol, li, blockquote {
     color: var(--fg1);
+}
+
+a {
+    color: var(--acc);
 }
 
 blockquote {
     font-style: italic;
     margin: 0;
     padding: 1rem;
-    background-color: var(--mg);
+    background-color: var(--bg0);
 }
 
 pre {
     margin: 0;
     padding: 1rem;
+    padding-top: 0;
+    background-color: var(--bg0);
 }
 
 code {
     color: var(--acc);
+    margin: 0;
+    padding: 0;
     white-space: pre-wrap;
 }
 
@@ -87,6 +96,11 @@ img {
     color: var(--acc);
 }
 
+.progress-section {
+    color: var(--fg2);
+
+}
+
 .content {
     padding: 2rem;
 }
@@ -94,9 +108,10 @@ img {
 .slide {
     display: none;
     background: var(--bg1);
+    margin-top: 0;
     padding: 1rem;
     box-shadow: none;
-    min-height:90vh;
+    min-height:calc(100vh - 4.5rem);
 }
 
 .slide h1 {
