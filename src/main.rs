@@ -29,9 +29,10 @@ fn main() -> anyhow::Result<()> {
 
     if mds.a.version {
         println!(
-            "{p} v{v}",
+            "{p} v{v}\n{r}",
             p = constants::APP_NAME,
-            v = constants::APP_VERSION
+            v = constants::APP_VERSION,
+            r = constants::APP_REPO
         );
         return Ok(());
     }
