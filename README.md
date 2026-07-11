@@ -10,30 +10,38 @@
     <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License" />
   <img src="https://img.shields.io/github/last-commit/simon-danielsson/mds/main?style=flat-square&color=blue" alt="Last commit" />
 </p>
+  
+<p align="center">
+  <a href="#info">Info</a> •
+  <a href="#install">Install</a> •
+  <a href="#usage">Usage</a>
+  <br>
+  <a href="#screenshots">Screenshots</a> •
+  <a href="#license">License</a>
+</p>  
+  
+---
+<div id="info"></div>
 
-### info
+## Info
 
 mds (markdown slides)
 
-### to add support for
+---
+<div id="install"></div>
 
-- [ ] tables
-- [x] code blocks
-- [ ] links
-- [x] images
-
+## Install
 
 ``` terminal
-
-Slide hierarchy:
-
-    # h1            slide section
-    ## h2           slide
-    ### h3          slide header text
-    #### h4         slide sub-header
-
+cargo install mds-rs
 ```
 
+---
+<div id="usage"></div>
+  
+## Usage
+
+### CLI
 
 ``` terminal
 USAGE
@@ -49,3 +57,30 @@ OPTIONS
                       If option is omitted, the slide is generated to 
                       the current directory. 
 ```
+  
+### Markdown
+
+No proper usage instructions written as of yet.
+
+``` terminal
+Slide hierarchy:
+
+    # h1            slide section
+    ## h2           slide
+    ### h3          slide header text
+    #### h4         slide sub-header
+```
+
+---
+<div id="screenshots"></div>
+  
+## Screenshots
+   
+No screenshots added yet.
+    
+---
+<div id="license"></div>
+  
+## License
+  
+This project is licensed under the [MIT License](https://github.com/simon-danielsson/mds/blob/main/LICENSE).  
