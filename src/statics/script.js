@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearTimeout(hideCursorTimeout);
         hideCursorTimeout = setTimeout(() => {
             document.documentElement.style.cursor = "none";
-        }, 5000);
+        }, 3000);
     });
 
     document.addEventListener("keydown", (e) => {
