@@ -40,7 +40,7 @@ fn main() -> anyhow::Result<()> {
     let slideshow = parse::md_parse(s)?;
 
     // write output to debug log
-    std::fs::write("parser_output.txt", format!("{:#?}", &slideshow))?;
+    // std::fs::write("parser_output.txt", format!("{:#?}", &slideshow))?;
 
     let html = gen_html::generate(slideshow)?;
     output_html(mds.a, html)?;
