@@ -33,6 +33,7 @@ fn main() -> anyhow::Result<()> {
             p = constants::APP_NAME,
             v = constants::APP_VERSION
         );
+        return Ok(());
     }
 
     let s = std::fs::read_to_string(&mds.a.ip_path)?;
