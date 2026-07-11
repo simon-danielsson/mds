@@ -39,7 +39,7 @@ There are no user-customizable theme-options as of yet.
 **Currently supported markdown syntax:**  
 - [ ] Tables
 - [ ] Syntax highlighting in code blocks
-- [-] Links (currently broken)
+- [x] Links 
 - [x] Lists (bullet, check, numbered)
 - [x] Images
 - [x] Code blocks
