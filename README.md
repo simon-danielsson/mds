@@ -24,9 +24,22 @@
 <div id="info"></div>
 
 ## Info
-
-mds (markdown slides)
-
+  
+I built this to create minimal and pretty slideshows for my Youtube channel, as
+well as other contexts where a slideshow might be useful.  
+  
+Currently supported markdown features:  
+- [ ] Tables
+- [ ] Syntax highlighting in code blocks
+- [x] Lists (bullet, check, numbered)
+- [x] Links
+- [x] Images
+- [x] Code blocks
+- [x] Quotes ('>')
+- [x] Headers (see usage section)
+  
+'mds' is an abbreviation for "markdown slides".
+  
 ---
 <div id="install"></div>
 
