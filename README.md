@@ -34,6 +34,8 @@ well as other contexts where a slideshow might be useful.
 - Hidden scrollbar
 - Auto-hide mouse after inactivity
   
+There are no user-customizable theme-options as of yet.
+  
 **Currently supported markdown syntax:**  
 - [ ] Tables
 - [ ] Syntax highlighting in code blocks
