@@ -73,7 +73,8 @@ OPTIONS
   
 ### Markdown
 
-No proper usage instructions written as of yet.
+No proper usage instructions written as of yet.  
+See the [examples](./examples) directory for more practical information.  
 
 ``` terminal
 Slide hierarchy:
