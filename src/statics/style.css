@@ -17,6 +17,25 @@ a {
     color: var(--acc);
 }
 
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--mg);
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '\2714';
+  position: relative;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  color: var(--acc);
+  font-size: 14px;
+}
+
 blockquote {
     font-style: italic;
     margin: 0;
