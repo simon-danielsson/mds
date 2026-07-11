@@ -80,7 +80,7 @@ impl SlideItem {
                             el_last = "</ol>";
                         }
                         ListItem::Check((_s, _checked)) => {
-                            el_first = "<ol>";
+                            el_first = "<ol class=\"checklist\">";
                             el_last = "</ol>";
                         }
                     }
@@ -96,9 +96,23 @@ impl SlideItem {
                         ListItem::Number(s) => op.push_str(
                             format!("\n<li>{s}</li>").as_str(),
                         ),
-                        ListItem::Check((s, _checked)) => op.push_str(
-                            format!("\n<li>{s}</li>").as_str(),
-                        ),
+                        ListItem::Check((s, checked)) => {
+                            if *checked {
+                                op.push_str(
+                                    format!(
+                                        "<li><input type=\"checkbox\" checked disabled> {s}</li>"
+                                    )
+                                    .as_str(),
+                                );
+                            } else {
+                                op.push_str(
+                                    format!(
+                                        "<li><input type=\"checkbox\" disabled> {s}</li>"
+                                    )
+                                    .as_str(),
+                                );
+                            }
+                        }
                     }
                 }
 

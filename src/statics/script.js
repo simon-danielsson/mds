@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 sectionTitle: section.dataset.title,
                 slideTitle: slide.dataset.title,
                 sectionNumber,
-                slideNumber
+                slideNumber,
             });
         });
     });
@@ -23,10 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="progress-container">
                 <div class="progress-fill" style="width:${progress}%"></div>
                 <div class="progress-text">
-                    ${presentation[current].sectionTitle}
-                    &nbsp;&nbsp;│&nbsp;&nbsp;
-                    ${presentation[current].slideTitle}
-                    &nbsp;&nbsp;${current + 1}/${presentation.length}
+                    <div class="progress-section">
+                        ${presentation[current].sectionTitle}
+                    </div>
+                    <div class="progress-slide">
+                        ${presentation[current].slideTitle}
+                        &nbsp;&nbsp;${current + 1}/${presentation.length}
+                    </div>
                 </div>
             </div>
         `;
@@ -34,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showSlide(index) {
         index = Math.max(0, Math.min(index, presentation.length - 1));
-        presentation.forEach(item => {
+        presentation.forEach((item) => {
             item.element.style.display = "none";
         });
         presentation[index].element.style.display = "block";
@@ -42,16 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
         updateProgress();
     }
 
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight") {
             showSlide(current + 1);
         }
         if (e.key === "ArrowLeft") {
             showSlide(current - 1);
         }
-
     });
 
     showSlide(0);
-
 });

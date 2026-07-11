@@ -14,12 +14,30 @@ a, h1, h2, h3, code, p, ul, ol, li, blockquote {
 
 blockquote {
     font-style: italic;
+    margin: 0;
     padding: 1rem;
     background-color: var(--mg);
 }
 
+pre {
+    margin: 0;
+    padding: 1rem;
+}
+
+code {
+    color: var(--acc);
+    white-space: pre-wrap;
+}
+
+.checklist {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
 body, html {
     margin: 0;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: var(--bg2);
 }
@@ -31,16 +49,21 @@ body, html {
 .progress-bar {
     position: sticky;
     top: 0;
-    background: white;
-    border-bottom: 1px solid var(--mg);
+    background: var(--bg1);
+    border-bottom: none;
     z-index: 1000;
 }
 
 .progress-container {
     width: 100%;
-    height: 40px;
-    background: var(--fg1);
+    height: 0.5rem;
+    background: var(--bg1);
     position: relative;
+}
+
+img {
+    max-width: 33vw;
+    height: auto;
 }
 
 .progress-fill {
@@ -52,22 +75,27 @@ body, html {
 
 .progress-text {
     position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 2rem;
+    right: 2rem;
+    top: 1rem;
+    display: flex;
+    justify-content: space-between;
     font-weight: bold;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--acc);
 }
 
 .content {
-    padding: 40px;
+    padding: 2rem;
 }
 
 .slide {
     display: none;
     background: var(--bg1);
-    padding: 40px;
+    padding: 1rem;
     box-shadow: none;
-    min-height: 300px;
+    min-height:90vh;
 }
 
 .slide h1 {
